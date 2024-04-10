@@ -1,9 +1,11 @@
-const io = require("socket.io")(3000);
+import { Server, Socket } from "socket.io";
 
-io.on("connection", (socket) => {
+const io: Server = new Server(3000);
+
+io.on("connection", (socket: Socket) => {
   console.log("Un cliente se ha conectado");
 
-  socket.on("mensaje", (data) => {
+  socket.on("mensaje", (data: any) => {
     console.log("Mensaje recibido:", data);
   });
 
