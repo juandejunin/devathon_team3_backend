@@ -1,18 +1,29 @@
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv'
 
 dotenv.config();
 
 const connectDB = () => {
-  mongoose.connect(process.env.URL_MONGO as string)
-    .then(() => { console.log('BBDD conectada') })
-    .catch(err => { console.error(err) });
+  const url = `mongodb://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_HOST}:${process.env.MONGO_DB_PORT}/`;
+  mongoose
+    .connect(url)
+    .then(() => {
+      console.log('BD conectada!! 🚀✔');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 
 const disconnectDB = () => {
-  mongoose.disconnect()
-    .then(() => { console.log('BBDD desconectada') })
-    .catch(err => { console.error(err) });
+  mongoose
+    .disconnect()
+    .then(() => {
+      console.log('BD desconectada');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 
 export { connectDB, disconnectDB };
