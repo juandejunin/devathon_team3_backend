@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 export class Parameters {
   static get port(): number {
     return Number(process.env.PORT);

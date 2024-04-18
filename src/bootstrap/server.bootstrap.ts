@@ -17,7 +17,7 @@ export class ServerBootstrap implements IBootstrap {
         .listen(port)
         .on('listening', () => {
           console.log(`Server is listening on port ${port}`);
-          resolve(true);
+          resolve(server);
         })
         .on('error', (err) => {
           reject(err);

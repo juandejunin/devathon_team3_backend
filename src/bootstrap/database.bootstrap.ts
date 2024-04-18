@@ -20,7 +20,7 @@ export class DatabaseBootstrap implements IBootstrap {
 
     DatabaseBootstrap.appConnection = connection.connection;
 
-    return 'Initialized';
+    return true;
   }
 
   static getConnection(): mongoose.Connection {

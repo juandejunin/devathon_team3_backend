@@ -1,18 +1,22 @@
-import express from 'express';
+import app from './app';
 import { DatabaseBootstrap } from './bootstrap/database.bootstrap';
 import { ServerBootstrap } from './bootstrap/server.bootstrap';
+import { SocketBootstrap } from './bootstrap/socket.bootstrap';
 
-const app = express();
+// const app = express();
 
 (async () => {
   const serverBootstrap = new ServerBootstrap(app);
+  const socketBootstrap = new SocketBootstrap(app);
   const databaseBootstrap = new DatabaseBootstrap();
 
   try {
-    await Promise.all([
+    const [server, database] = await Promise.all([
       serverBootstrap.initialize(),
       databaseBootstrap.initialize()
     ]);
+
+    socketBootstrap.initialize(server);
 
     console.log('Server and database are running');
   } catch (err) {
