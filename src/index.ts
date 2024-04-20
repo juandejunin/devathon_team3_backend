@@ -6,7 +6,7 @@ import { connectDB } from './db/db';
 const app = express();
 const server = http.createServer(app);
 
-const PORT = 3000;
+const PORT = 8000;
 
 const io = new SocketIOServer(server);
 
