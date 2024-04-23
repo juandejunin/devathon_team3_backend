@@ -14,15 +14,22 @@ export class CreateUserRoomService {
     const userId = uuidv4();
     const roomId = uuidv4();
 
+    // Crear y guardar el usuario
     const user = new User({ userId, name: userName, points, responseTime });
     await this.userRepository.save(user);
 
+    // Crear la sala
     const room = new Room({ roomId, name: roomName });
-    await this.roomRepository.save(room);
 
+    // Obtener la sala recién creada
+    const savedRoom = await this.roomRepository.save(room);
+    console.log(savedRoom)
+
+    // Agregar el ID del usuario a la lista de usuarios de la sala
+    room.addUser(userId);
+
+    // Actualizar la sala en la base de datos con la nueva lista de usuarios
+    await this.roomRepository.save(room);
     return { userId, roomId };
   }
 }
-
-
-

@@ -5,14 +5,19 @@ import { UserRepository } from '../domain/repositories/user.repository';
 import { RoomRepository } from '../domain/repositories/room.repository';
 
 export class CreateUserRoomService {
-  getUsersInRoom(roomId: string) {
-      throw new Error('Method not implemented.');
-  }
+
   constructor(
     private readonly userRepository: UserRepository,
     private readonly roomRepository: RoomRepository
   ) {}
 
+
+  async getUsersInRoom(roomId: string): Promise<string[]> {
+    // Lógica para obtener los usuarios asociados a la sala con el ID proporcionado
+    // Implementa la lógica para consultar la base de datos y obtener los usuarios de la sala con el ID proporcionado
+    // Devuelve una lista de IDs de usuarios
+    return ['userId1', 'userId2']; // Ejemplo de usuarios en la sala (reemplaza con la lógica real)
+  }
   async execute(userName: string, points: number, responseTime: number, roomName: string): Promise<{ userId: string, roomId: string }> {
     const userId = uuidv4();
     const roomId = uuidv4();
@@ -23,6 +28,7 @@ export class CreateUserRoomService {
     const room = new Room({ roomId, name: roomName });
     await this.roomRepository.save(room);
 
+    
     return { userId, roomId };
   }
 }

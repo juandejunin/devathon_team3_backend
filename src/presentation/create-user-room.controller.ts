@@ -7,13 +7,14 @@ export class CreateUserRoomController {
   async create(req: Request, res: Response) {
     try {
       const { userName, points, responseTime, roomName } = req.body;
-      const { userId, roomId } = await this.createUserRoomService.execute(userName, points, responseTime, roomName);
+      const { roomId } = await this.createUserRoomService.execute(userName, points, responseTime, roomName);
 
       // Aquí debes obtener los usuarios dentro de la sala, asumiendo que tienes una forma de hacerlo
+      const usersInRoom = await this.createUserRoomService.getUsersInRoom(roomId);
       // Supongamos que tienes un método en el servicio para obtener los usuarios de la sala
     //   const usersInRoom = await this.createUserRoomService.getUsersInRoom(roomId);
 
-      res.json({ roomId, roomName, userId,userName, points, responseTime});
+    res.json({ roomId, roomName, users: usersInRoom });
     } catch (error) {
       console.error('Error creating user and room:', error);
       res.status(500).json({ error: 'Internal Server Error' });
