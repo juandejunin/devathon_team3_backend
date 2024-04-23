@@ -1,6 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 
 import SomethingRouter from './presentation/routes';
+import CreateUserRoomRoutes from './presentation/create-user-room.routes';
 
 class App {
   expressApp: Application;
@@ -19,6 +20,7 @@ class App {
 
   mountRoutes() {
     this.expressApp.use('/something', SomethingRouter);
+    this.expressApp.use('/room', CreateUserRoomRoutes);;
   }
 
   mountErrorHandlers() {
