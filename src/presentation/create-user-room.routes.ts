@@ -4,7 +4,7 @@ import { UserRepository } from '../domain/repositories/user.repository';
 import { RoomRepository } from '../domain/repositories/room.repository';
 import { UserInfrastructure } from '../infrastructure/user.infrastructure';
 import { RoomInfrastructure } from '../infrastructure/room.infrastructure';
-import { CreateUserRoomService } from '../application/create-user-room.service';
+import { CreateUserRoomService } from '../services/create-user-room.service';
 
 export class CreateUserRoomRoutes {
   readonly router: Router;
@@ -21,7 +21,7 @@ export class CreateUserRoomRoutes {
     const createUserRoomService = new CreateUserRoomService(userRepository, roomRepository);
     const createUserRoomController = new CreateUserRoomController(createUserRoomService);
 
-    this.router.post('/', createUserRoomController.create.bind(createUserRoomController));
+    this.router.post('/create', createUserRoomController.create.bind(createUserRoomController));
   }
 }
 export default new CreateUserRoomRoutes().router;

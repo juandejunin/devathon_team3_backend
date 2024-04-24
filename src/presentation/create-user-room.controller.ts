@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { CreateUserRoomService } from '../application/create-user-room.service';
+import { CreateUserRoomService } from '../services/create-user-room.service';
 
 export class CreateUserRoomController {
   constructor(private readonly createUserRoomService: CreateUserRoomService) {}

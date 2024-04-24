@@ -20,7 +20,7 @@ class App {
 
   mountRoutes() {
     this.expressApp.use('/something', SomethingRouter);
-    this.expressApp.use('/room', CreateUserRoomRoutes);;
+    this.expressApp.use('/api/v1/room', CreateUserRoomRoutes);;
   }
 
   mountErrorHandlers() {

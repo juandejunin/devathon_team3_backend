@@ -5,31 +5,32 @@ import { UserRepository } from '../domain/repositories/user.repository';
 import { RoomRepository } from '../domain/repositories/room.repository';
 
 export class CreateUserRoomService {
+
   constructor(
     private readonly userRepository: UserRepository,
     private readonly roomRepository: RoomRepository
   ) {}
 
+ 
+  async getUsersInRoom(roomId: string): Promise<string[]> {
+    // Lógica para obtener los usuarios asociados a la sala con el ID proporcionado
+    // Implementa la lógica para consultar la base de datos y obtener los usuarios de la sala con el ID proporcionado
+    // Devuelve una lista de IDs de usuarios
+    return ['userId1', 'userId2']; // Ejemplo de usuarios en la sala (reemplaza con la lógica real)
+  }
   async execute(userName: string, points: number, responseTime: number, roomName: string): Promise<{ userId: string, roomId: string }> {
     const userId = uuidv4();
     const roomId = uuidv4();
 
-    // Crear y guardar el usuario
     const user = new User({ userId, name: userName, points, responseTime });
     await this.userRepository.save(user);
 
-    // Crear la sala
     const room = new Room({ roomId, name: roomName });
-
-    // Obtener la sala recién creada
-    const savedRoom = await this.roomRepository.save(room);
-    console.log(savedRoom)
-
-    // Agregar el ID del usuario a la lista de usuarios de la sala
-    room.addUser(userId);
-
-    // Actualizar la sala en la base de datos con la nueva lista de usuarios
     await this.roomRepository.save(room);
+ 
+
+    await this.roomRepository.addUserToRoom(roomId, userId);
+    // 
     return { userId, roomId };
   }
 }
