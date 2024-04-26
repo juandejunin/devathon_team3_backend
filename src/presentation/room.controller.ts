@@ -1,8 +1,8 @@
 import { Request, Response, response } from 'express';
-import { CreateUserRoomService } from '../services/create-user-room.service';
+import { CreateRoomService } from '../services/room.service';
 
-export class CreateUserRoomController {
-  constructor(private readonly createUserRoomService: CreateUserRoomService) {}
+export class CreateRoomController {
+  constructor(private readonly createUserRoomService: CreateRoomService) {}
 
   async create(req: Request, res: Response): Promise<void> {
     const { roomName } = req.body;

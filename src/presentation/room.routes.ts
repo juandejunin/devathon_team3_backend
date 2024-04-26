@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { CreateUserRoomController } from './create-user-room.controller';
+import { CreateRoomController } from './room.controller';
 import { UserRepository } from '../domain/repositories/user.repository';
 import { RoomRepository } from '../domain/repositories/room.repository';
 import { UserInfrastructure } from '../infrastructure/user.infrastructure';
 import { RoomInfrastructure } from '../infrastructure/room.infrastructure';
-import { CreateUserRoomService } from '../services/create-user-room.service';
+import { CreateRoomService } from '../services/room.service';
 
-export class CreateUserRoomRoutes {
+export class RoomRoutes {
   readonly router: Router;
   static router: any;
 
@@ -18,10 +18,10 @@ export class CreateUserRoomRoutes {
   private init() {
     const userRepository: UserRepository = new UserInfrastructure();
     const roomRepository: RoomRepository = new RoomInfrastructure();
-    const createUserRoomService = new CreateUserRoomService();
-    const createUserRoomController = new CreateUserRoomController(createUserRoomService);
+    const createRoomService = new CreateRoomService();
+    const createRoomController = new CreateRoomController(createRoomService);
 
-    this.router.post('/create', createUserRoomController.create.bind(createUserRoomController));
+    this.router.post('/create', createRoomController.create.bind(createRoomController));
   }
 }
-export default new CreateUserRoomRoutes().router;
+export default new RoomRoutes().router;

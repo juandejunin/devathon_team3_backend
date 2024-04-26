@@ -141,7 +141,7 @@
 
 import { RoomModel } from '../models/room.model'; // Importa el modelo de la sala
 
-export class CreateUserRoomService {
+export class CreateRoomService {
   async execute(roomName: string): Promise<any> {
     // Devuelve una promesa que resuelve con cualquier tipo
     try {
@@ -158,3 +158,5 @@ export class CreateUserRoomService {
     }
   }
 }
+
+
