@@ -18,7 +18,7 @@ export class CreateUserRoomRoutes {
   private init() {
     const userRepository: UserRepository = new UserInfrastructure();
     const roomRepository: RoomRepository = new RoomInfrastructure();
-    const createUserRoomService = new CreateUserRoomService(userRepository, roomRepository);
+    const createUserRoomService = new CreateUserRoomService();
     const createUserRoomController = new CreateUserRoomController(createUserRoomService);
 
     this.router.post('/create', createUserRoomController.create.bind(createUserRoomController));

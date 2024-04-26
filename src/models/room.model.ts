@@ -1,18 +1,16 @@
-import mongoose, { Document, Schema, Model } from 'mongoose';
 
+import { Schema, model, Document, Types } from 'mongoose';
 
-interface RoomDocument extends Document {
-  name: string;
-  users: string[];
+export interface RoomDocument extends Document {
+  roomName: string;
+  users: string[]; 
 }
 
-
-const RoomSchema = new Schema<RoomDocument>({
-  name: { type: String, required: true },
-  users: { type: [String], default: [] } 
+const roomSchema = new Schema({
+  _id: { type: Schema.Types.ObjectId, auto: true },
+  roomName: { type: String, required: true },
+  users: [{ type: Schema.Types.ObjectId, ref: 'User' }] 
 });
 
+export const RoomModel = model('Room', roomSchema);
 
-const RoomModel: Model<RoomDocument> = mongoose.model<RoomDocument>('Room', RoomSchema);
-
-export { RoomDocument, RoomModel };

@@ -1,23 +1,26 @@
-import { Request, Response } from 'express';
+import { Request, Response, response } from 'express';
 import { CreateUserRoomService } from '../services/create-user-room.service';
 
 export class CreateUserRoomController {
   constructor(private readonly createUserRoomService: CreateUserRoomService) {}
 
-  async create(req: Request, res: Response) {
+  async create(req: Request, res: Response): Promise<void> {
+    const { roomName } = req.body;
+
     try {
-      const { userName, points, responseTime, roomName } = req.body;
-      const { roomId } = await this.createUserRoomService.execute(userName, points, responseTime, roomName);
+      // Llama al servicio para crear la sala con el nombre proporcionado
 
-      // Aquí debes obtener los usuarios dentro de la sala, asumiendo que tienes una forma de hacerlo
-      const usersInRoom = await this.createUserRoomService.getUsersInRoom(roomId);
-      // Supongamos que tienes un método en el servicio para obtener los usuarios de la sala
-    //   const usersInRoom = await this.createUserRoomService.getUsersInRoom(roomId);
+      let room = await this.createUserRoomService.execute(roomName);
 
-    res.json({ roomId, roomName, users: usersInRoom });
+      // Envía una respuesta de éxito
+      res.status(201).json({
+        "response" : room,
+        "error": null
+});
     } catch (error) {
-      console.error('Error creating user and room:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      // Maneja los errores y envía una respuesta de error
+      console.error('Error creating room:', error);
+      res.status(500).json({ error: 'Error al crear la sala', response:null });
     }
   }
 }

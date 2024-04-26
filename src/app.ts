@@ -3,6 +3,7 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import SomethingRouter from './presentation/routes';
 import CreateUserRoomRoutes from './presentation/create-user-room.routes';
 
+import { RoomModel } from './models/room.model';
 class App {
   expressApp: Application;
 
@@ -11,6 +12,7 @@ class App {
     this.middlewares();
     this.mountRoutes();
     this.mountErrorHandlers();
+    this.checkIndexes(); 
   }
 
   middlewares() {
@@ -30,6 +32,17 @@ class App {
         res.status(404).send('Path not found');
       }
     );
+  }
+
+
+  async checkIndexes() {
+    try {
+      // Obtener los índices de la colección de salas
+      const indexes = await RoomModel.collection.getIndexes();
+      console.log('Indexes:', indexes);
+    } catch (error) {
+      console.error('Error al obtener los índices de la colección de salas:', error);
+    }
   }
 }
 
