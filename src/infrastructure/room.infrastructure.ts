@@ -12,10 +12,6 @@ export class RoomInfrastructure implements RoomRepository {
     throw new Error('Method not implemented.');
   }
   async save(room: Room) {
-    // const repository =
-    //   DatabaseBootstrap.getDataSource().getRepository(SomethingEntity);
-    // const somethingEntity = somethingDto.fromDomainToData(something);
-    // await repository.save(somethingEntity);
     throw new Error('Method not implemented.');
   }
 }

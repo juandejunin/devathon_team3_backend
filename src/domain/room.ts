@@ -29,11 +29,10 @@ export class Room {
     this.users.push(userId);
   }
 
-  // Método para obtener la lista de usuarios
   getUsers() {
     return this.users;
   }
-  // Método para obtener los usuarios asociados a la sala mediante el roomId
+
   getUsersInRoom(roomId: string): string[] {
     if (this.roomId === roomId) {
       return this.users;

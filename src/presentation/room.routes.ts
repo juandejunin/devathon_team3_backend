@@ -21,7 +21,10 @@ export class RoomRoutes {
     const createRoomService = new CreateRoomService();
     const createRoomController = new CreateRoomController(createRoomService);
 
-    this.router.post('/create', createRoomController.create.bind(createRoomController));
+    this.router.post(
+      '/create',
+      createRoomController.create.bind(createRoomController)
+    );
   }
 }
 export default new RoomRoutes().router;

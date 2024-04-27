@@ -5,22 +5,16 @@ export class CreateRoomController {
   constructor(private readonly createUserRoomService: CreateRoomService) {}
 
   async create(req: Request, res: Response): Promise<void> {
-    const { roomName } = req.body;
-
+    const { roomName, userName } = req.body;
     try {
-      // Llama al servicio para crear la sala con el nombre proporcionado
-
-      let room = await this.createUserRoomService.execute(roomName);
-
-      // Envía una respuesta de éxito
+      let room = await this.createUserRoomService.execute(roomName, userName);
       res.status(201).json({
-        "response" : room,
-        "error": null
-});
+        response: room,
+        error: null
+      });
     } catch (error) {
-      // Maneja los errores y envía una respuesta de error
       console.error('Error creating room:', error);
-      res.status(500).json({ error: 'Error al crear la sala', response:null });
+      res.status(500).json({ error: 'Error al crear la sala', response: null });
     }
   }
 }
