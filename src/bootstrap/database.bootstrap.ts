@@ -13,6 +13,7 @@ export class DatabaseBootstrap implements IBootstrap {
     const { host, port, database, username, password } = dbConfig;
 
     const uri = `mongodb://${username}:${password}@${host}:${port}/`;
+   
 
     const connectionOptions: mongoose.ConnectOptions = {};
 
