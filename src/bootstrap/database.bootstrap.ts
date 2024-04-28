@@ -8,13 +8,13 @@ export class DatabaseBootstrap implements IBootstrap {
 
   async initialize(): Promise<TInitialize> {
     const dbConfig = Parameters.dbConfig;
-    console.log('dbConfig', dbConfig);
 
+    console.log(dbConfig);
     const { host, port, database, username, password } = dbConfig;
 
     const uri = `mongodb://${username}:${password}@${host}:${port}/`;
-   
 
+      
     const connectionOptions: mongoose.ConnectOptions = {};
 
     const connection = await mongoose.connect(uri, connectionOptions);

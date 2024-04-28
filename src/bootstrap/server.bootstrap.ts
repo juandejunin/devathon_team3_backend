@@ -9,6 +9,7 @@ export class ServerBootstrap implements IBootstrap {
 
   initialize(): Promise<TInitialize> {
     const promise = new Promise((resolve, reject) => {
+      
       const server = http.createServer(this.app);
 
       const port = Parameters.port;
