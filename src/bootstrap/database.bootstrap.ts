@@ -12,8 +12,9 @@ export class DatabaseBootstrap implements IBootstrap {
     console.log(dbConfig);
     const { host, port, database, username, password } = dbConfig;
 
-    const uri = `mongodb://${username}:${password}@${host}:${port}/`;
-
+    //const uri = `mongodb://${username}:${password}@${host}:${port}/`;
+    const uri = "mongodb+srv://ramiroalalvarez:WQ3itgNXMZYqBiH8@cluster.j1zsymh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster"; 
+ 
       
     const connectionOptions: mongoose.ConnectOptions = {};
 
