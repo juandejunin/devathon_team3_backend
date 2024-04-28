@@ -12,8 +12,11 @@ export class DatabaseBootstrap implements IBootstrap {
     console.log(dbConfig);
     const { host, port, database, username, password } = dbConfig;
 
+    //DB Local connection
     //const uri = `mongodb://${username}:${password}@${host}:${port}/`;
-    const uri = "mongodb+srv://ramiroalalvarez:WQ3itgNXMZYqBiH8@cluster.j1zsymh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster"; 
+    
+    //DB Remote connection
+    const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?retryWrites=true&w=majority&appName=Cluster`; 
  
       
     const connectionOptions: mongoose.ConnectOptions = {};
