@@ -18,6 +18,13 @@ class App {
   middlewares() {
     this.expressApp.use(express.json());
     this.expressApp.use(express.urlencoded({ extended: true }));
+    // Configuración CORS
+    this.expressApp.use((req: Request, res: Response, next: NextFunction) => {
+      res.setHeader('Access-Control-Allow-Origin', '*'); // Permitir solicitudes de cualquier origen
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Métodos permitidos
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Encabezados permitidos
+      next();
+    });
   }
 
   mountRoutes() {
