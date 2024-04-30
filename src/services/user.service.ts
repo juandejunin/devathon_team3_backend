@@ -2,7 +2,7 @@ import { UserModel } from '../models/user.models';
 import { Types } from 'mongoose';
 import { RoomModel } from '../models/room.model';
 
-export class CreateUserServicio {
+export class CreateUserService {
   async execute(name: string, roomId: Types.ObjectId): Promise<any> {
     try {
       const user = new UserModel({ name, room: roomId });
@@ -13,7 +13,7 @@ export class CreateUserServicio {
       );
       return user;
     } catch (error) {
-      throw new Error('Error al crear el usuario: ' + error.message);
+      throw new Error('Error creating user: ' + error.message);
     }
   }
 }
