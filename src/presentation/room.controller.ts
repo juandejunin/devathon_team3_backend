@@ -2,10 +2,13 @@ import { Request, Response, response } from 'express';
 import { CreateRoomService, JoinRoomService } from '../services/room.service';
 
 export class CreateRoomController {
+  
   constructor(private readonly createUserRoomService: CreateRoomService) {}
 
   async create(req: Request, res: Response): Promise<void> {
+    
     const { roomName, userName } = req.body;
+
     try {
       let room = await this.createUserRoomService.execute(roomName, userName);
       res.status(201).json({

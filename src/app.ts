@@ -1,10 +1,11 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
-
+import bodyParser from 'body-parser';
 import SomethingRouter from './presentation/routes';
 import RoomRoutes from './presentation/room.routes';
-
 import { RoomModel } from './models/room.model';
+
 class App {
+
   expressApp: Application;
 
   constructor() {
@@ -12,12 +13,13 @@ class App {
     this.middlewares();
     this.mountRoutes();
     this.mountErrorHandlers();
+    
     // this.checkIndexes();
   }
 
   middlewares() {
-    this.expressApp.use(express.json());
-    this.expressApp.use(express.urlencoded({ extended: true }));
+    this.expressApp.use(bodyParser.json());
+    this.expressApp.use(bodyParser.urlencoded({ extended: true }));
   }
 
   mountRoutes() {
