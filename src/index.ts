@@ -3,11 +3,9 @@ import { DatabaseBootstrap } from './bootstrap/database.bootstrap';
 import { ServerBootstrap } from './bootstrap/server.bootstrap';
 import { SocketBootstrap } from './bootstrap/socket.bootstrap';
 
-// const app = express();
-
 (async () => {
   const serverBootstrap = new ServerBootstrap(app);
-  const socketBootstrap = new SocketBootstrap(app);
+  const socketBootstrap = new SocketBootstrap();
   const databaseBootstrap = new DatabaseBootstrap();
 
   try {
