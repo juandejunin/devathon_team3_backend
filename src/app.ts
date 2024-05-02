@@ -1,9 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
-
 import SomethingRouter from './presentation/routes';
 import RoomRoutes from './presentation/room.routes';
 
-import { RoomModel } from './models/room.model';
 class App {
   expressApp: Application;
 
@@ -12,12 +10,20 @@ class App {
     this.middlewares();
     this.mountRoutes();
     this.mountErrorHandlers();
-    // this.checkIndexes();
   }
 
   middlewares() {
     this.expressApp.use(express.json());
     this.expressApp.use(express.urlencoded({ extended: true }));
+    this.expressApp.use((req: Request, res: Response, next: NextFunction) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+      res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type, Authorization'
+      );
+      next();
+    });
   }
 
   mountRoutes() {
@@ -33,16 +39,6 @@ class App {
       }
     );
   }
-
-  // async checkIndexes() {
-  //   try {
-  //     // Obtener los índices de la colección de salas
-  //     const indexes = await RoomModel.collection.getIndexes();
-  //     console.log('Indexes:', indexes);
-  //   } catch (error) {
-  //     console.error('Error al obtener los índices de la colección de salas:', error);
-  //   }
-  // }
 }
 
 export default new App().expressApp;
