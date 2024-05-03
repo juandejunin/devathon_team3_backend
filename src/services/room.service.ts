@@ -38,3 +38,28 @@ export class JoinRoomService {
     }
   }
 }
+
+
+
+
+export class ReadRoomService {
+  async execute(): Promise<any> {
+    try {
+      const rooms = await RoomModel.find();
+      const roomsInfo = [];
+      
+      for (const room of rooms) {
+        const roomObj = {
+          id: room._id,
+          name: room.roomName,
+          userCount: room.users.length
+        };
+        roomsInfo.push(roomObj);
+      }
+
+      return roomsInfo;
+    } catch (error) {
+      throw new Error('Error fetching room list: ' + error.message);
+    }
+  }
+}
