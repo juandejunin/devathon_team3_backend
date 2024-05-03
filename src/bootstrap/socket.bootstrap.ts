@@ -1,5 +1,5 @@
 import { Socket, Server as SocketIOServer } from 'socket.io';
-import { GetGameQuestions } from '../application/question';
+import { GetGameQuestions } from '../application/get-game-questions';
 import { QuestionInfrastructure } from '../infrastructure/question.infrastructure';
 import { TInitialize } from './bootstrap.interface';
 
@@ -19,6 +19,7 @@ export class SocketBootstrap {
       }
       const io = new SocketIOServer(server);
 
+      const repository = new QuestionInfrastructure();
       io.on('connection', async (socket: Socket) => {
         console.log('Un cliente se ha conectado');
 
@@ -26,11 +27,10 @@ export class SocketBootstrap {
           socket.join(groupId);
           console.log(`Cliente se ha unido al grupo: ${groupId}`);
 
-          // Crear una instancia de QuestionRepository y pasarla a GetGameQuestions
-          const repository = new QuestionInfrastructure();
           const getQuestions = new GetGameQuestions(repository);
+
           const questions = await getQuestions.execute();
-          console.log(questions);
+          console.log(JSON.stringify(questions, null, 2));
 
           socket.emit('questions', questions);
         });
