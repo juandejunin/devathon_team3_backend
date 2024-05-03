@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 import { Parameters } from '../parameters';
+import { SeedQuestions } from '../seeders/seed';
 import { IBootstrap, TInitialize } from './bootstrap.interface';
 
 export class DatabaseBootstrap implements IBootstrap {
@@ -21,6 +22,7 @@ export class DatabaseBootstrap implements IBootstrap {
     const connectionOptions: mongoose.ConnectOptions = {};
 
     const connection = await mongoose.connect(uri, connectionOptions);
+    await new SeedQuestions().seedQuestions();
 
     DatabaseBootstrap.appConnection = connection.connection;
 

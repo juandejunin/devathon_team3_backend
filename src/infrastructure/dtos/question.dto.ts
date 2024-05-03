@@ -11,6 +11,10 @@ export class QuestionDto {
     return somethingEntity;
   }
 
+  static fromDomainToDataArray(something: Question[]): QuestionEntity[] {
+    return something.map((item) => this.fromDomainToData(item));
+  }
+
   static fromDataToDomain(
     entity: QuestionEntity | QuestionEntity[]
   ): Question | Question[] {
