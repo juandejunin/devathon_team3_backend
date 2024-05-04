@@ -63,3 +63,19 @@ export class ReadRoomService {
     }
   }
 }
+
+export class DeleteRoomService {
+  async execute(roomId: string): Promise<any> {
+    try {
+      const roomIdObject = new mongoose.Types.ObjectId(roomId);
+      // Buscar la habitación por su ID y eliminarla
+      const deletedRoom = await RoomModel.findByIdAndDelete(roomIdObject);
+      if (!deletedRoom) {
+        throw new Error('The room does not exist.');
+      }
+      return deletedRoom;
+    } catch (error) {
+      throw new Error('Error deleting room: ' + error.message);
+    }
+  }
+}
