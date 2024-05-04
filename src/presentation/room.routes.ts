@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { CreateRoomController, JoinRoomController } from './room.controller';
+import { CreateRoomController, JoinRoomController, ReadRoomController} from './room.controller';
 import { UserRepository } from '../domain/repositories/user.repository';
 import { RoomRepository } from '../domain/repositories/room.repository';
 import { UserInfrastructure } from '../infrastructure/user.infrastructure';
 import { RoomInfrastructure } from '../infrastructure/room.infrastructure';
-import { CreateRoomService } from '../services/room.service';
+import { CreateRoomService, ReadRoomService} from '../services/room.service';
 import { JoinRoomService } from '../services/room.service';
 import { isModuleNamespaceObject } from 'util/types';
 
@@ -25,7 +25,14 @@ export class RoomRoutes {
     const createRoomController = new CreateRoomController(createRoomService);
     const joinRoomService = new JoinRoomService();
     const joinRoomController = new JoinRoomController(joinRoomService);
-  
+    const readRoomService = new ReadRoomService();
+    const readRoomController = new  ReadRoomController(readRoomService)
+
+
+    this.router.get(
+      '/list',
+      readRoomController.read.bind(readRoomController)
+    );
     this.router.post(
       '/create',
       createRoomController.create.bind(createRoomController)

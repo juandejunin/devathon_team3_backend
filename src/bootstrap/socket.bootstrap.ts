@@ -1,12 +1,12 @@
-import { Application } from 'express';
-
 import { Socket, Server as SocketIOServer } from 'socket.io';
+import { GetGameQuestions } from '../application/get-game-questions';
+import { QuestionInfrastructure } from '../infrastructure/question.infrastructure';
 import { TInitialize } from './bootstrap.interface';
 
 export class SocketBootstrap {
-  constructor(private readonly app: Application) {}
+  constructor() {}
 
-  initialize(server: TInitialize): void {
+  async initialize(server: TInitialize): Promise<void> {
     try {
       if (server instanceof Error) {
         throw server;
@@ -19,17 +19,26 @@ export class SocketBootstrap {
       }
       const io = new SocketIOServer(server);
 
-      io.on('connection', (socket: Socket) => {
+      const repository = new QuestionInfrastructure();
+      io.on('connection', async (socket: Socket) => {
         console.log('Un cliente se ha conectado');
 
-        socket.on('mensaje', (data: any) => {
-          console.log('Mensaje recibido:', data);
+        socket.on('joinGroup', async (groupId: string) => {
+          socket.join(groupId);
+          console.log(`Cliente se ha unido al grupo: ${groupId}`);
+
+          const getQuestions = new GetGameQuestions(repository);
+
+          const questions = await getQuestions.execute();
+          console.log(JSON.stringify(questions, null, 2));
+
+          socket.emit('questions', questions);
         });
 
-        socket.emit(
-          'bienvenida',
-          '¡Bienvenido a la app de preguntas y respuestas!'
-        );
+        socket.on('disconnect', (roomId) => {
+          console.log('Cliente desconectado');
+          socket.leave(roomId);
+        });
       });
     } catch (error) {
       console.log('Error occurred during socket initialization:', error);

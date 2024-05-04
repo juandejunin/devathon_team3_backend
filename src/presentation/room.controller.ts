@@ -1,5 +1,5 @@
 import { Request, Response, response } from 'express';
-import { CreateRoomService, JoinRoomService } from '../services/room.service';
+import { CreateRoomService, JoinRoomService, ReadRoomService } from '../services/room.service';
 
 export class CreateRoomController {
   
@@ -43,4 +43,20 @@ export class JoinRoomController {
   }
 }
 
+export class ReadRoomController {
+  constructor(private readonly readRoomService: ReadRoomService) {}
 
+  async read(req: Request, res: Response): Promise<void> {
+    try {
+      const rooms = await this.readRoomService.execute();
+      
+      res.status(200).json({
+        response: rooms,
+        error: null
+      });
+    } catch (error) {
+      console.error('Error fetching room list:', error);
+      res.status(500).json({ error: 'Failed to fetch room list', response: null });
+    }
+  }
+}
