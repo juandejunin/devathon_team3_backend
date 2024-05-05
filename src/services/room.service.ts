@@ -21,33 +21,30 @@ export class CreateRoomService {
 export class JoinRoomService {
   async execute(roomId: string, userName: string): Promise<any> {
     try {
-      const roomIdObject = new mongoose.Types.ObjectId(roomId);      
+      const roomIdObject = new mongoose.Types.ObjectId(roomId);
       const existingRoom = await RoomModel.findById(roomIdObject);
       if (!existingRoom) {
         throw new Error('The room does not exist.');
-      }      
+      }
       if (existingRoom.users.length >= 4) {
         throw new Error('The room is full.');
       }
       const createUserService = new CreateUserService();
       let user = await createUserService.execute(userName, roomIdObject);
       const roomUpdated = await RoomModel.findById(roomIdObject);
-      return roomUpdated
+      return roomUpdated;
     } catch (error) {
       throw new Error('Error joining room: ' + error.message);
     }
   }
 }
 
-
-
-
 export class ReadRoomService {
   async execute(): Promise<any> {
     try {
       const rooms = await RoomModel.find();
       const roomsInfo = [];
-      
+
       for (const room of rooms) {
         const roomObj = {
           id: room._id,
@@ -68,7 +65,7 @@ export class DeleteRoomService {
   async execute(roomId: string): Promise<any> {
     try {
       const roomIdObject = new mongoose.Types.ObjectId(roomId);
-      // Buscar la habitación por su ID y eliminarla
+
       const deletedRoom = await RoomModel.findByIdAndDelete(roomIdObject);
       if (!deletedRoom) {
         throw new Error('The room does not exist.');
