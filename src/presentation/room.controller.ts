@@ -1,5 +1,5 @@
 import { Request, Response, response } from 'express';
-import { CreateRoomService, JoinRoomService, ReadRoomService } from '../services/room.service';
+import { CreateRoomService, JoinRoomService, ReadRoomService,DeleteRoomService  } from '../services/room.service';
 
 export class CreateRoomController {
   
@@ -57,6 +57,24 @@ export class ReadRoomController {
     } catch (error) {
       console.error('Error fetching room list:', error);
       res.status(500).json({ error: 'Failed to fetch room list', response: null });
+    }
+  }
+}
+
+export class DeleteRoomController {
+  constructor(private readonly deleteRoomService: DeleteRoomService) {}
+
+  async delete(req: Request, res: Response): Promise<void> {
+    const { roomId } = req.params; 
+    try {
+      const deletedRoom = await this.deleteRoomService.execute(roomId);
+      res.status(200).json({
+        response: "delete room",
+        error: null
+      });
+    } catch (error) {
+      console.error('Error deleting room:', error);
+      res.status(500).json({ error: 'Failed to delete room', response: null });
     }
   }
 }

@@ -9,17 +9,7 @@ export class SomethingController extends ControllerBase {
   }
 
   async create(req: Request, res: Response) {
-    // const errors = await this.validateParameters(CreateSomethingModel, req.body);
-    // if (errors) {
-    //   return res.status(400).json(errors);
-    // }
     const somethingId = uuidv4();
-    // const props: CreateSomethingModel = {
-    //   ...
-    // };
-    // const something = new CreateSomething(props);
-    // const valueReturned = await this.createSave.execute(something);
-    // res.json(valueReturned);
     res.json({ somethingId });
   }
 }

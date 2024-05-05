@@ -1,17 +1,16 @@
 import { Router } from 'express';
-import { CreateRoomController, JoinRoomController, ReadRoomController} from './room.controller';
+import { CreateRoomController, JoinRoomController, ReadRoomController, DeleteRoomController } from './room.controller';
 import { UserRepository } from '../domain/repositories/user.repository';
 import { RoomRepository } from '../domain/repositories/room.repository';
 import { UserInfrastructure } from '../infrastructure/user.infrastructure';
 import { RoomInfrastructure } from '../infrastructure/room.infrastructure';
-import { CreateRoomService, ReadRoomService} from '../services/room.service';
+import { CreateRoomService, ReadRoomService, DeleteRoomService } from '../services/room.service';
 import { JoinRoomService } from '../services/room.service';
 import { isModuleNamespaceObject } from 'util/types';
 
 export class RoomRoutes {
   
   readonly router: Router;
-  static router: any;
 
   constructor() {
     this.router = Router();
@@ -26,8 +25,9 @@ export class RoomRoutes {
     const joinRoomService = new JoinRoomService();
     const joinRoomController = new JoinRoomController(joinRoomService);
     const readRoomService = new ReadRoomService();
-    const readRoomController = new  ReadRoomController(readRoomService)
-
+    const readRoomController = new ReadRoomController(readRoomService);
+    const deleteRoomService = new DeleteRoomService();
+    const deleteRoomController = new DeleteRoomController(deleteRoomService);
 
     this.router.get(
       '/list',
@@ -41,9 +41,12 @@ export class RoomRoutes {
       '/join',
       joinRoomController.create.bind(joinRoomController)
     );
+    this.router.delete( 
+      '/delete/:roomId', 
+      deleteRoomController.delete.bind(deleteRoomController)
+    );
   }
 }
-
 
 export default new RoomRoutes().router;
 
