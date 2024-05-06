@@ -6,8 +6,10 @@ import { UserInfrastructure } from '../infrastructure/user.infrastructure';
 import { RoomInfrastructure } from '../infrastructure/room.infrastructure';
 import { CreateRoomService, ReadRoomService, DeleteRoomService } from '../services/room.service';
 import { JoinRoomService } from '../services/room.service';
+import { isModuleNamespaceObject } from 'util/types';
 
 export class RoomRoutes {
+  
   readonly router: Router;
 
   constructor() {
@@ -47,3 +49,4 @@ export class RoomRoutes {
 }
 
 export default new RoomRoutes().router;
+
