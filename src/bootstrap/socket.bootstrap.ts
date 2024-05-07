@@ -1,6 +1,8 @@
 import { Socket, Server as SocketIOServer } from 'socket.io';
 import { GetGameQuestions } from '../application/get-game-questions';
+import { GetGameUsers } from '../application/get-game-users';
 import { QuestionInfrastructure } from '../infrastructure/question.infrastructure';
+import { UserInfrastructure } from '../infrastructure/user.infrastructure';
 import { TInitialize } from './bootstrap.interface';
 
 export class SocketBootstrap {
@@ -20,6 +22,7 @@ export class SocketBootstrap {
       const io = new SocketIOServer(server);
 
       const repository = new QuestionInfrastructure();
+      const userRepository = new UserInfrastructure();
       io.on('connection', async (socket: Socket) => {
         console.log('Un cliente se ha conectado');
 
@@ -28,8 +31,10 @@ export class SocketBootstrap {
           console.log(`Cliente se ha unido al grupo: ${groupId}`);
 
           const getQuestions = new GetGameQuestions(repository);
+          const getUsers = new GetGameUsers(userRepository);
 
           const questions = await getQuestions.execute();
+          const users = await getUsers.execute(groupId);
           console.log(JSON.stringify(questions, null, 2));
 
           socket.emit('questions', questions);

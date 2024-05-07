@@ -2,17 +2,17 @@ import { Question } from '../../domain/question';
 import questionEntity, { QuestionEntity } from '../entities/question.entity';
 
 export class QuestionDto {
-  static fromDomainToData(something: Question): QuestionEntity {
+  static fromDomainToData(question: Question): QuestionEntity {
     const somethingEntity = new questionEntity();
-    somethingEntity._id = something.properties.questionId;
-    somethingEntity.title = something.properties.title;
-    somethingEntity.alternatives = something.properties.alternatives;
+    somethingEntity._id = question.properties.questionId;
+    somethingEntity.title = question.properties.title;
+    somethingEntity.alternatives = question.properties.alternatives;
 
     return somethingEntity;
   }
 
-  static fromDomainToDataArray(something: Question[]): QuestionEntity[] {
-    return something.map((item) => this.fromDomainToData(item));
+  static fromDomainToDataArray(questions: Question[]): QuestionEntity[] {
+    return questions.map((item) => this.fromDomainToData(item));
   }
 
   static fromDataToDomain(
