@@ -52,7 +52,8 @@ Once the Docker services are up and running, you can start the server in develop
 ```
 npm run dev
 ```
-
+## Documentation
+https://answer-races-docs.vercel.app/
 
 
 # Backend de aplicación de Answer Races
@@ -111,27 +112,5 @@ Una vez que los servicios de Docker estén en funcionamiento, puedes iniciar el 
 ```
 npm run dev
 ```
-
-
-## Estructura del proyecto
-
-- src
-  - application
-    - create-user-room.service.ts
-  - domain
-    - repositories
-      - user.repository.ts
-      - room.repository.ts
-    - user.ts
-    - room.ts
-  - infrastructure
-    - user.infrastructure.ts
-    - room.infrastructure.ts
-  - models           // Nueva carpeta para los modelos de Mongoose
-    - room.model.ts  // Archivo para el modelo de la habitación
-  - presentation
-    - create-user-room.controller.ts
-    - create-user-room.routes.ts
-    - routes.ts
-  - app.ts
-  - index.ts
+## Documentacion
+https://answer-races-docs.vercel.app/
