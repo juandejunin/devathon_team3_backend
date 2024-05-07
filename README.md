@@ -1,6 +1,6 @@
-# Question and answer application backend
+# Answer Races application backend
 
-This is the backend repository for a question and answer application, developed in Node.js with TypeScript and using socket.io for real-time communication.
+This is the backend repository for a Answer Races application, developed in Node.js with TypeScript and using socket.io for real-time communication.
 
 ## Prerequisites
 
@@ -55,9 +55,9 @@ npm run dev
 
 
 
-# Backend de aplicación de preguntas y respuestas
+# Backend de aplicación de Answer Races
 
-Este es el repositorio backend para una aplicación de preguntas y respuestas, desarrollado en Node.js con TypeScript y utilizando socket.io para la comunicación en tiempo real.
+Este es el repositorio backend para Answer Races, desarrollado en Node.js con TypeScript y utilizando socket.io para la comunicación en tiempo real.
 
 ## Requisitos previos
 
